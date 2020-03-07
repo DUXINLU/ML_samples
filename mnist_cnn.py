@@ -24,7 +24,7 @@ class Net(nn.Module):
         self.fc = nn.Linear(320, 10)
 
     def forward(self, x):
-        in_size = x.size(0)
+        in_size = x.size(0)  # number of batch_size
         x = F.relu(self.max_pool(self.conv1(x)))
         x = F.relu(self.max_pool(self.conv2(x)))
         x = x.view(in_size, -1)
