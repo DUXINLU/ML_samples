@@ -2,4 +2,4 @@
 .ipy*
 MNIST
 *data*
-
+.DS*
