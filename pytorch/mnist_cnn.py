@@ -8,7 +8,7 @@ from torch.autograd import Variable
 
 # 加载数据集
 batch_size = 100
-
+# 100(batchsize)*1(channel)*28*(height)*28(width)
 train_dataset = datasets.MNIST(root='./', train=True, transform=transforms.ToTensor(), download=True)
 test_dataset = datasets.MNIST(root='./', train=False, transform=transforms.ToTensor())
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
@@ -25,9 +25,13 @@ class Net(nn.Module):
 
     def forward(self, x):
         in_size = x.size(0)  # number of batch_size
+        # 28*28
         x = F.relu(self.max_pool(self.conv1(x)))
+        # 24*24卷积->12*12池化
         x = F.relu(self.max_pool(self.conv2(x)))
+        # 8*8卷积->4*4池化
         x = x.view(in_size, -1)
+        # 最后结果4*4*20(通道数)=320
         x = self.fc(x)
         return F.log_softmax(x)
 
